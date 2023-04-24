@@ -1,4 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css');
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Ubuntu', sans-serif !important;
+}
+
+p, div, cell, .col, .row, h1, h2, h3, h4, h5, button, label, span, th, td, .mat-option-text {
+  font-family: 'Ubuntu', sans-serif !important;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.grandesito {
+  font-family: 'Ubuntu', sans-serif !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+}
