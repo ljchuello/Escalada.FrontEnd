@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {MasterPageComponent} from '../shared/components/master-page/master-page.component';
 import {IndexComponent} from './pages/index/index.component';
 
@@ -20,4 +20,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class HomeRoutingModule { }
+export class AplicacionRoutingModule {
+}

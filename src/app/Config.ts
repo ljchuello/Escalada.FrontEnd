@@ -3,7 +3,7 @@ export const Enlace = {
   Version: 'v2022.xx.xx.x',
 
   Auth: 'oAuth',
-  Home: 'inicio',
+  Home: 'home',
 
   AtAdd: 'addAt',
   AtEdit: 'editAt',
