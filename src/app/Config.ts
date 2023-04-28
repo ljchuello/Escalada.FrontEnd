@@ -4,6 +4,7 @@ export const Enlace = {
 
   Auth: 'oAuth',
   Home: 'home',
+  Aplicacion: 'application',
 
   AtAdd: 'addAt',
   AtEdit: 'editAt',

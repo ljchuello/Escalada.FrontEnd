@@ -21,6 +21,11 @@ const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
+    path: Enlace.Aplicacion,
+    loadChildren: () => import('./aplicacion/aplicacion.module').then(x => x.AplicacionModule),
+    canActivate: [LoginGuard],
+  },
+  {
     path: '**',
     component: MasterPageComponent,
     canActivate: [LoginGuard],

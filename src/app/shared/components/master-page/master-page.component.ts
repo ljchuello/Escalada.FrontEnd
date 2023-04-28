@@ -20,6 +20,7 @@ export class MasterPageComponent implements OnInit {
 
   AuthUrl: string = Enlace.Auth;
   homeUrl: string = Enlace.Home;
+  aplicacionUrl: string = Enlace.Aplicacion;
 
   oAuth: OAuth = {};
 

@@ -20,15 +20,17 @@
 
       <mat-divider></mat-divider>
 
-<!--      <a mat-list-item (click)="sidenav.toggle()" [routerLink]="['', ubicacionUrl]">-->
-<!--        <mat-icon class="material-icons">dashboard</mat-icon>-->
-<!--        <span>Application</span>-->
-<!--      </a>-->
+      <a mat-list-item (click)="sidenav.toggle()" [routerLink]="['', aplicacionUrl]">
+        <i class="fa-solid fa-server"></i>
+        &nbsp;
+        <span>Application</span>
+      </a>
 
       <mat-divider></mat-divider>
 
       <a mat-list-item [routerLink]="['', AuthUrl]">
-        <i class="material-icons">logout</i>
+        <i class="fa-solid fa-right-from-bracket"></i>
+        &nbsp;
         <span>Cerrar sesión</span>
       </a>
 

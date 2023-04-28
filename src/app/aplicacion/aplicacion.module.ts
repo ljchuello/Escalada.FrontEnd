@@ -3,15 +3,19 @@ import {CommonModule} from '@angular/common';
 
 import {AplicacionRoutingModule} from './aplicacion-routing.module';
 import {IndexComponent} from './pages/index/index.component';
+import {NuevoComponent} from './pages/nuevo/nuevo.component';
+import {MaterialModule} from '../material/material.module';
 
 
 @NgModule({
   declarations: [
-    IndexComponent
+    IndexComponent,
+    NuevoComponent
   ],
   imports: [
     CommonModule,
-    AplicacionRoutingModule
+    AplicacionRoutingModule,
+    MaterialModule,
   ]
 })
 export class AplicacionModule {
