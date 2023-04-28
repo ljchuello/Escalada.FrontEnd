@@ -1,0 +1,63 @@
+<mat-sidenav-container fullscreen mode="push">
+
+  <mat-sidenav #sidenav>
+
+    <mat-toolbar color="primary">
+      <span>{{oAuth.descripcion}}</span>
+      <span class="spacer"></span>
+      <button mat-button (click)="sidenav.toggle()">
+        <mat-icon class="icon-spacio">menu</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-nav-list>
+
+      <a mat-list-item (click)="sidenav.toggle()" [routerLink]="['', homeUrl]">
+        <i class="material-icons">dashboard</i>
+        &nbsp;
+        <span>Dashboard</span>
+      </a>
+
+      <mat-divider></mat-divider>
+
+<!--      <a mat-list-item (click)="sidenav.toggle()" [routerLink]="['', ubicacionUrl]">-->
+<!--        <mat-icon class="material-icons">dashboard</mat-icon>-->
+<!--        <span>Application</span>-->
+<!--      </a>-->
+
+      <mat-divider></mat-divider>
+
+      <a mat-list-item [routerLink]="['', AuthUrl]">
+        <i class="material-icons">logout</i>
+        <span>Cerrar sesión</span>
+      </a>
+
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+  <mat-toolbar class="white-text black">
+    <button mat-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <img src="/assets/pdsos.png" alt="DPSOs" style="max-height: 50px">
+
+    <span class="spacer"></span>
+
+    <span>{{oAuth.descripcion}}</span>
+
+    <span>&nbsp;</span>
+
+    <button mat-raised-button color="basic">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <router-outlet></router-outlet>
+
+  <div class="col-12" *ngIf="oAuth.email == 'ljchuello@gmail.com'">
+    {{oAuth.token}}
+  </div>
+
+</mat-sidenav-container>

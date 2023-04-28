@@ -1,0 +1,46 @@
+<div class="row fondo alto-100">
+  <div class="col-12 col-md-6 col-lg-4 color-fondo alto-100">
+
+    <div class="col-12">
+      <img src="/assets/pdsos.png" alt="DPSOs" class="responsive-img col-6">
+
+      <img src="/assets/entecprois.png" alt="EnTecPro"
+           class="responsive-img col-6">
+    </div>
+
+    <div class="col-12 center">
+      <img src="/assets/User-Profile.png" alt="User" class="responsive-img">
+    </div>
+
+    <mat-form-field appearance="outline" class="col-12" color="primary">
+      <mat-label>Correo electrónico</mat-label>
+      <input matInput placeholder="Usuario" [(ngModel)]="_authLogin.email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-12" color="primary">
+      <mat-label>Contraseña</mat-label>
+      <input matInput [type]="_hide ? 'password' : 'text'" [(ngModel)]="_authLogin.token">
+      <button mat-icon-button matSuffix (click)="_hide = !_hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="_hide">
+        <mat-icon>{{_hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <div class="col-12 padding5">
+      <button mat-raised-button color="primary" class="col-12 truncate" [disabled]="_block" (click)="login()">
+        Iniciar sesión
+      </button>
+    </div>
+
+    <div class="col-12 padding5">
+      <button mat-stroked-button color="warn" class="col-12 truncate" [disabled]="_block">
+        Recordar contraseña
+      </button>
+    </div>
+
+    <div class="col-12">
+      Versión: <strong>{{version}}</strong>
+    </div>
+
+  </div>
+</div>
