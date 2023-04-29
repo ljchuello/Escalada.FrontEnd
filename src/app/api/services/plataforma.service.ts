@@ -9,11 +9,12 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { OClaveValorS } from '../models/o-clave-valor-s';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AppService extends BaseService {
+export class PlataformaService extends BaseService {
   constructor(
     config: ApiConfiguration,
     http: HttpClient
@@ -22,24 +23,24 @@ export class AppService extends BaseService {
   }
 
   /**
-   * Path part for operation apiAppGet
+   * Path part for operation apiPlataformaGet
    */
-  static readonly ApiAppGetPath = '/api/App';
+  static readonly ApiPlataformaGetPath = '/api/Plataforma';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiAppGet$Plain()` instead.
+   * To access only the response body, use `apiPlataformaGet$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiAppGet$Plain$Response(params?: {
+  apiPlataformaGet$Plain$Response(params?: {
     token?: string;
   },
   context?: HttpContext
 
-): Observable<StrictHttpResponse<string>> {
+): Observable<StrictHttpResponse<Array<OClaveValorS>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, AppService.ApiAppGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, PlataformaService.ApiPlataformaGetPath, 'get');
     if (params) {
       rb.query('token', params.token, {});
     }
@@ -51,43 +52,43 @@ export class AppService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<string>;
+        return r as StrictHttpResponse<Array<OClaveValorS>>;
       })
     );
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiAppGet$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `apiPlataformaGet$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiAppGet$Plain(params?: {
+  apiPlataformaGet$Plain(params?: {
     token?: string;
   },
   context?: HttpContext
 
-): Observable<string> {
+): Observable<Array<OClaveValorS>> {
 
-    return this.apiAppGet$Plain$Response(params,context).pipe(
-      map((r: StrictHttpResponse<string>) => r.body as string)
+    return this.apiPlataformaGet$Plain$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<OClaveValorS>>) => r.body as Array<OClaveValorS>)
     );
   }
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiAppGet$Json()` instead.
+   * To access only the response body, use `apiPlataformaGet$Json()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiAppGet$Json$Response(params?: {
+  apiPlataformaGet$Json$Response(params?: {
     token?: string;
   },
   context?: HttpContext
 
-): Observable<StrictHttpResponse<string>> {
+): Observable<StrictHttpResponse<Array<OClaveValorS>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, AppService.ApiAppGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, PlataformaService.ApiPlataformaGetPath, 'get');
     if (params) {
       rb.query('token', params.token, {});
     }
@@ -99,26 +100,26 @@ export class AppService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<string>;
+        return r as StrictHttpResponse<Array<OClaveValorS>>;
       })
     );
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiAppGet$Json$Response()` instead.
+   * To access the full response (for headers, for example), `apiPlataformaGet$Json$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiAppGet$Json(params?: {
+  apiPlataformaGet$Json(params?: {
     token?: string;
   },
   context?: HttpContext
 
-): Observable<string> {
+): Observable<Array<OClaveValorS>> {
 
-    return this.apiAppGet$Json$Response(params,context).pipe(
-      map((r: StrictHttpResponse<string>) => r.body as string)
+    return this.apiPlataformaGet$Json$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<OClaveValorS>>) => r.body as Array<OClaveValorS>)
     );
   }
 

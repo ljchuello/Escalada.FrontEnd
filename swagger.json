@@ -21,6 +21,15 @@
         "tags": [
           "App"
         ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -125,6 +134,147 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/oAuth"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Hetzner/location": {
+      "get": {
+        "tags": [
+          "Hetzner"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Location"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Location"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Location"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Hetzner/serverType": {
+      "get": {
+        "tags": [
+          "Hetzner"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServerType"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServerType"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServerType"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Plataforma": {
+      "get": {
+        "tags": [
+          "Plataforma"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/oClaveValorS"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/oClaveValorS"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/oClaveValorS"
+                  }
                 }
               }
             }
@@ -303,6 +453,46 @@
   },
   "components": {
     "schemas": {
+      "Location": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "networkZone": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "oAuth": {
         "type": "object",
         "properties": {
@@ -315,6 +505,117 @@
             "nullable": true
           },
           "token": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "oClaveValorS": {
+        "type": "object",
+        "properties": {
+          "clave": {
+            "type": "string",
+            "nullable": true
+          },
+          "valor": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Price": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "price_hourly": {
+            "$ref": "#/components/schemas/PriceHourly"
+          },
+          "price_monthly": {
+            "$ref": "#/components/schemas/PriceMonthly"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PriceHourly": {
+        "type": "object",
+        "properties": {
+          "net": {
+            "type": "string",
+            "nullable": true
+          },
+          "gross": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PriceMonthly": {
+        "type": "object",
+        "properties": {
+          "net": {
+            "type": "string",
+            "nullable": true
+          },
+          "gross": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ServerType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "cores": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "memory": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "disk": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "prices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Price"
+            },
+            "nullable": true
+          },
+          "storage_type": {
+            "type": "string",
+            "nullable": true
+          },
+          "cpu_type": {
+            "type": "string",
+            "nullable": true
+          },
+          "architecture": {
             "type": "string",
             "nullable": true
           }

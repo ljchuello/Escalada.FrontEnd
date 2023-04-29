@@ -6,6 +6,8 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AppService } from './services/app.service';
 import { AuthService } from './services/auth.service';
+import { HetznerService } from './services/hetzner.service';
+import { PlataformaService } from './services/plataforma.service';
 import { UsuarioService } from './services/usuario.service';
 
 /**
@@ -18,6 +20,8 @@ import { UsuarioService } from './services/usuario.service';
   providers: [
     AppService,
     AuthService,
+    HetznerService,
+    PlataformaService,
     UsuarioService,
     ApiConfiguration
   ],
