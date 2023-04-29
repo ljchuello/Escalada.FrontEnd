@@ -1,1 +1,108 @@
-<p>nuevo works!</p>
+<div [formGroup]="miForm" class="col-12">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>Create a new app</mat-card-title>
+        <mat-card-subtitle>Publish an app with a sample page or your own code. By creating an app, you allow us through
+          your Hetzner Cloud API Key to create the necessary services and manage Hetzner Cloud resources and permissions
+          on your behalf.
+        </mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+      <br>
+      <mat-form-field appearance="outline" class="col-12">
+        <mat-label>Application name</mat-label>
+        <input matInput
+               formControlName="applicationName"
+               [(ngModel)]="applicationName">
+        <mat-hint class="mat-error" *ngIf="helper.FgCampoInvalido('applicationName', miForm)">
+          Must contain between 5 and 150 characters
+        </mat-hint>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="row">
+    <div class="col-12">&nbsp;</div>
+  </div>
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>Platform</mat-card-title>
+        <mat-card-subtitle>
+          The platform is the technology behind your application, you must choose the one that
+          corresponds. Once selected, it cannot be changed.
+        </mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+      <br>
+      <mat-form-field appearance="fill" class="col-12">
+        <mat-label>Platform</mat-label>
+        <mat-select formControlName="aplicacionPlataforma"
+                    [(ngModel)]="aplicacionPlataforma">
+          <mat-option *ngFor="let row of listEntorno" [value]="row.clave">{{row.valor}}</mat-option>
+        </mat-select>
+        <mat-hint class="mat-error" *ngIf="helper.FgCampoInvalido('aplicacionPlataforma', miForm)">
+          You must select a platform.
+        </mat-hint>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="row">
+    <div class="col-12">&nbsp;</div>
+  </div>
+
+  <mat-card class="col-12">
+    <mat-card-header>
+      <mat-card-title>Location</mat-card-title>
+      <mat-card-subtitle>The location allows you to place the application closer to your customers, you must choose
+        wisely because you will not be able to change it later.
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content style="padding: 5px">
+      <mat-hint class="mat-error" *ngIf="helper.FgCampoInvalido('aplicacionUbicacion', miForm)">
+        Select a location
+      </mat-hint>
+      <div class="col-12" style="background-color: #303030">
+        <mat-radio-group formControlName="aplicacionUbicacion"
+                         [(ngModel)]="aplicacionUbicacion"
+                         (ngModelChange)="aplicacionServidorId = 0">
+
+          <div class="row" style="padding: 7px">
+
+            <div *ngFor="let row of listDataCenters" class="col-6 col-md-4 col-lg-3" style="padding: 5px">
+              <mat-card class="col-12">
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-6 center-align">
+                      <img [src]="getFlat(row!.location!)" [alt]="row!.location!.description!" class="responsive-img"
+                           style="max-height: 50px">
+                    </div>
+                    <div class="col-6">
+                      {{row!.location!.description!}}
+                      <br>
+                      {{row!.location!.networkZone!}}
+                    </div>
+                  </div>
+                </mat-card-content>
+                <mat-card-actions>
+                  <mat-radio-button color="primary"
+                                    [value]="row!.location!.id!">{{row!.location!.city!}}</mat-radio-button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+
+          </div>
+
+        </mat-radio-group>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+</div>

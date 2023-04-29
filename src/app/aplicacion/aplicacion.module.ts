@@ -5,6 +5,7 @@ import {AplicacionRoutingModule} from './aplicacion-routing.module';
 import {IndexComponent} from './pages/index/index.component';
 import {NuevoComponent} from './pages/nuevo/nuevo.component';
 import {MaterialModule} from '../material/material.module';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -12,11 +13,12 @@ import {MaterialModule} from '../material/material.module';
     IndexComponent,
     NuevoComponent
   ],
-  imports: [
-    CommonModule,
-    AplicacionRoutingModule,
-    MaterialModule,
-  ]
+    imports: [
+        CommonModule,
+        AplicacionRoutingModule,
+        MaterialModule,
+        ReactiveFormsModule,
+    ]
 })
 export class AplicacionModule {
 }
