@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {OClaveValorS} from '../../../api/models/o-clave-valor-s';
 import {ServerType} from '../../../api/models/server-type';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
@@ -14,7 +14,7 @@ import {Location} from '../../../api/models/location';
   templateUrl: './nuevo.component.html',
   styleUrls: ['./nuevo.component.css']
 })
-export class NuevoComponent implements OnInit {
+export class NuevoComponent implements OnInit, AfterContentChecked {
 
   block: boolean = true;
   helper: Helper = new Helper();
@@ -24,6 +24,7 @@ export class NuevoComponent implements OnInit {
     private matSnackBar: MatSnackBar,
     private hetznerService: HetznerService,
     private plataformaService: PlataformaService,
+    private ref: ChangeDetectorRef,
   ) {
   }
 
@@ -37,14 +38,16 @@ export class NuevoComponent implements OnInit {
   // Var
   applicationName: string = '';
   aplicacionPlataforma: string = '';
-  aplicacionUbicacion: string = '';
+  aplicacionUbicacion: number = 0;
+  aplicacionServidorId: number = 0;
 
   // Build
   build() {
     this.miForm = this.fb.group({
       applicationName: [{value: this.applicationName}, [Validators.required, Validators.minLength(5), Validators.maxLength(150)]],
       aplicacionPlataforma: [{value: this.aplicacionPlataforma}, [Validators.required]],
-      aplicacionUbicacion: [{value: this.aplicacionUbicacion}, [Validators.required]],
+      aplicacionUbicacion: [{value: this.aplicacionUbicacion}, [Validators.required, Validators.min(1)]],
+      aplicacionServidorId: [{value: this.aplicacionServidorId}, [Validators.required, Validators.min(1)]],
     });
   }
 
@@ -70,6 +73,56 @@ export class NuevoComponent implements OnInit {
 
     } catch (err) {
       this.helper.Err(err, this.matSnackBar);
+    }
+  }
+
+  ngAfterContentChecked() {
+    this.ref.detectChanges();
+  }
+
+  getFlat(row: Location) {
+    if (row != Location) {
+      return `https://flagicons.lipis.dev/flags/4x3/${row.country!.toLowerCase()}.svg`;
+    } else
+      return `https://flagicons.lipis.dev/flags/4x3/us.svg`;
+  }
+
+  getServerType(amd: boolean, shared: boolean): ServerType[] {
+    try {
+      // Obtenemos
+      let current: ServerType[] = this.listServerType;
+
+      // Filtramos
+      if (this.aplicacionUbicacion! > 0) {
+
+        // Obtenemos la ubicación actual
+        let actual: Location = this.listLocation.find(x => x!.id! == this.aplicacionUbicacion)!;
+
+        // Filtramos
+        current = this.listServerType.filter(x => x!.prices!.filter(y => y.location == actual.name));
+      }
+
+      // amd - shared
+      if (amd && shared) {
+        return current.filter(x => x.cpu_type == 'shared' && x.name!.toLowerCase().includes('cpx'));
+      }
+      // amd - dicated
+      if (amd && !shared) {
+        return current.filter(x => x.cpu_type == 'dedicated' && x.name!.toLowerCase().includes('ccx') && x.name!.substr(4, 1) === '2');
+      }
+      // intel - shared
+      if (!amd && shared) {
+        return current.filter(x => x.cpu_type == 'shared' && x.name!.toLowerCase().includes('cx'));
+      }
+      // intel - dicated
+      if (!amd && !shared) {
+        return current.filter(x => x.cpu_type == 'dedicated' && x.name!.toLowerCase().includes('ccx') && x.name!.substr(4, 1) === '1');
+      }
+
+      // Nel
+      return [];
+    } catch (err) {
+      return [];
     }
   }
 

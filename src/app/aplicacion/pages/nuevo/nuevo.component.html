@@ -70,29 +70,28 @@
       </mat-hint>
       <div class="col-12" style="background-color: #303030">
         <mat-radio-group formControlName="aplicacionUbicacion"
-                         [(ngModel)]="aplicacionUbicacion"
-                         (ngModelChange)="aplicacionServidorId = 0">
+                         [(ngModel)]="aplicacionUbicacion">
 
           <div class="row" style="padding: 7px">
 
-            <div *ngFor="let row of listDataCenters" class="col-6 col-md-4 col-lg-3" style="padding: 5px">
+            <div *ngFor="let row of listLocation" class="col-6 col-md-4 col-lg-3" style="padding: 5px">
               <mat-card class="col-12">
                 <mat-card-content>
                   <div class="row">
                     <div class="col-6 center-align">
-                      <img [src]="getFlat(row!.location!)" [alt]="row!.location!.description!" class="responsive-img"
+                      <img [src]="getFlat(row)" [alt]="row!.description!" class="responsive-img"
                            style="max-height: 50px">
                     </div>
                     <div class="col-6">
-                      {{row!.location!.description!}}
+                      {{row!.city!}}
                       <br>
-                      {{row!.location!.networkZone!}}
+                      <pre>{{row!.networkZone!}}</pre>
                     </div>
                   </div>
                 </mat-card-content>
                 <mat-card-actions>
                   <mat-radio-button color="primary"
-                                    [value]="row!.location!.id!">{{row!.location!.city!}}</mat-radio-button>
+                                    [value]="row!.id!">{{row!.city!}}</mat-radio-button>
                 </mat-card-actions>
               </mat-card>
             </div>
@@ -101,6 +100,66 @@
 
         </mat-radio-group>
       </div>
+
+    </mat-card-content>
+  </mat-card>
+
+  <div class="row">
+    <div class="col-12">&nbsp;</div>
+  </div>
+
+  <mat-card class="col-12">
+    <mat-card-header>
+      <mat-card-title>Instance - {{aplicacionServidorId}}</mat-card-title>
+      <mat-card-subtitle>
+        The type of instance determines the vCPU, RAM, SSD, and outbound network transfer capacity that each server
+        running your application will have. You can choose between shared or dedicated vCPUs, and between AMD or Intel
+        processors.
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content style="padding: 5px">
+      <mat-hint class="mat-error" *ngIf="helper.FgCampoInvalido('aplicacionServidorId', miForm)">
+        Select a server type
+      </mat-hint>
+
+      <mat-radio-group formControlName="aplicacionServidorId"
+                       [(ngModel)]="aplicacionServidorId">
+        <mat-tab-group style="background-color: #303030">
+
+          <mat-tab label="AMD | Shared">
+            <div class="row">
+              <div *ngFor="let row of getServerType(true, true)" class="col-6 col-md-4 col-lg-3" style="padding: 5px">
+                <app-card-server-type [row]="row"></app-card-server-type>
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="Intel | Shared">
+            <div class="row">
+              <div *ngFor="let row of getServerType(false, true)" class="col-6 col-md-4 col-lg-3" style="padding: 5px">
+                <app-card-server-type [row]="row"></app-card-server-type>
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="AMD | Dedicated">
+            <div class="row">
+              <div *ngFor="let row of getServerType(true, false)" class="col-6 col-md-4 col-lg-3" style="padding: 5px">
+                <app-card-server-type [row]="row"></app-card-server-type>
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="Intel | Dedicated">
+            <div class="row">
+              <div *ngFor="let row of getServerType(false, false)" class="col-6 col-md-4 col-lg-3" style="padding: 5px">
+                <app-card-server-type [row]="row"></app-card-server-type>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-radio-group>
 
     </mat-card-content>
   </mat-card>

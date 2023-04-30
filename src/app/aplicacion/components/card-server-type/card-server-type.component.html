@@ -1,0 +1,20 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>AMD | Dedicated</mat-card-title>
+    <mat-card-subtitle>€ {{row!.prices![0]!.price_monthly!.gross! | number:'0.2-2'}}Month
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      <i class="fa-solid fa-microchip"></i> vCPU: <span class="text-bold">{{row!.cores!}}</span>
+      <br>
+      <i class="fa-solid fa-memory"></i> RAM: <span class="text-bold">{{row!.memory!}} GB</span>
+      <br>
+      <i class="fa-regular fa-hard-drive"></i> HDD (NVMe): <span class="text-bold">{{row!.disk!}}
+      GB</span>
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <mat-radio-button color="primary" [value]="row!.id!">{{row!.name!.toUpperCase()}}</mat-radio-button>
+  </mat-card-actions>
+</mat-card>
