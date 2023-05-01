@@ -9,7 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { Location } from '../models/location';
+import { Datacenter } from '../models/datacenter';
 import { ServerType } from '../models/server-type';
 
 @Injectable({
@@ -24,24 +24,24 @@ export class HetznerService extends BaseService {
   }
 
   /**
-   * Path part for operation apiHetznerLocationGet
+   * Path part for operation apiHetznerDatacenterGet
    */
-  static readonly ApiHetznerLocationGetPath = '/api/Hetzner/location';
+  static readonly ApiHetznerDatacenterGetPath = '/api/Hetzner/datacenter';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiHetznerLocationGet$Plain()` instead.
+   * To access only the response body, use `apiHetznerDatacenterGet$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiHetznerLocationGet$Plain$Response(params?: {
+  apiHetznerDatacenterGet$Plain$Response(params?: {
     token?: string;
   },
   context?: HttpContext
 
-): Observable<StrictHttpResponse<Array<Location>>> {
+): Observable<StrictHttpResponse<Array<Datacenter>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, HetznerService.ApiHetznerLocationGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, HetznerService.ApiHetznerDatacenterGetPath, 'get');
     if (params) {
       rb.query('token', params.token, {});
     }
@@ -53,43 +53,43 @@ export class HetznerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<Location>>;
+        return r as StrictHttpResponse<Array<Datacenter>>;
       })
     );
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiHetznerLocationGet$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `apiHetznerDatacenterGet$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiHetznerLocationGet$Plain(params?: {
+  apiHetznerDatacenterGet$Plain(params?: {
     token?: string;
   },
   context?: HttpContext
 
-): Observable<Array<Location>> {
+): Observable<Array<Datacenter>> {
 
-    return this.apiHetznerLocationGet$Plain$Response(params,context).pipe(
-      map((r: StrictHttpResponse<Array<Location>>) => r.body as Array<Location>)
+    return this.apiHetznerDatacenterGet$Plain$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<Datacenter>>) => r.body as Array<Datacenter>)
     );
   }
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiHetznerLocationGet$Json()` instead.
+   * To access only the response body, use `apiHetznerDatacenterGet$Json()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiHetznerLocationGet$Json$Response(params?: {
+  apiHetznerDatacenterGet$Json$Response(params?: {
     token?: string;
   },
   context?: HttpContext
 
-): Observable<StrictHttpResponse<Array<Location>>> {
+): Observable<StrictHttpResponse<Array<Datacenter>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, HetznerService.ApiHetznerLocationGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, HetznerService.ApiHetznerDatacenterGetPath, 'get');
     if (params) {
       rb.query('token', params.token, {});
     }
@@ -101,26 +101,26 @@ export class HetznerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<Location>>;
+        return r as StrictHttpResponse<Array<Datacenter>>;
       })
     );
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiHetznerLocationGet$Json$Response()` instead.
+   * To access the full response (for headers, for example), `apiHetznerDatacenterGet$Json$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiHetznerLocationGet$Json(params?: {
+  apiHetznerDatacenterGet$Json(params?: {
     token?: string;
   },
   context?: HttpContext
 
-): Observable<Array<Location>> {
+): Observable<Array<Datacenter>> {
 
-    return this.apiHetznerLocationGet$Json$Response(params,context).pipe(
-      map((r: StrictHttpResponse<Array<Location>>) => r.body as Array<Location>)
+    return this.apiHetznerDatacenterGet$Json$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<Datacenter>>) => r.body as Array<Datacenter>)
     );
   }
 

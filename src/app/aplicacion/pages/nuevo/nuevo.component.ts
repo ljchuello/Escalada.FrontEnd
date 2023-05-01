@@ -8,6 +8,7 @@ import {lastValueFrom} from 'rxjs';
 import {HetznerService} from '../../../api/services/hetzner.service';
 import {PlataformaService} from '../../../api/services/plataforma.service';
 import {Location} from '../../../api/models/location';
+import {Datacenter} from '../../../api/models/datacenter';
 
 @Component({
   selector: 'app-nuevo',
@@ -29,7 +30,7 @@ export class NuevoComponent implements OnInit, AfterContentChecked {
   }
 
   listEntorno: OClaveValorS[] = [];
-  listLocation: Location[] = [];
+  listDataCenter: Datacenter[] = [];
   listServerType: ServerType[] = [];
 
   // Reactivo
@@ -38,7 +39,7 @@ export class NuevoComponent implements OnInit, AfterContentChecked {
   // Var
   applicationName: string = '';
   aplicacionPlataforma: string = '';
-  aplicacionUbicacion: number = 0;
+  ubicacionId: number = 0;
   aplicacionServidorId: number = 0;
 
   // Build
@@ -46,7 +47,7 @@ export class NuevoComponent implements OnInit, AfterContentChecked {
     this.miForm = this.fb.group({
       applicationName: [{value: this.applicationName}, [Validators.required, Validators.minLength(5), Validators.maxLength(150)]],
       aplicacionPlataforma: [{value: this.aplicacionPlataforma}, [Validators.required]],
-      aplicacionUbicacion: [{value: this.aplicacionUbicacion}, [Validators.required, Validators.min(1)]],
+      ubicacionId: [{value: this.ubicacionId}, [Validators.required, Validators.min(1)]],
       aplicacionServidorId: [{value: this.aplicacionServidorId}, [Validators.required, Validators.min(1)]],
     });
   }
@@ -62,7 +63,7 @@ export class NuevoComponent implements OnInit, AfterContentChecked {
       }));
 
       // Obtenemos las locaciones
-      this.listLocation = await lastValueFrom(this.hetznerService.apiHetznerLocationGet$Json({
+      this.listDataCenter = await lastValueFrom(this.hetznerService.apiHetznerDatacenterGet$Json({
         token: this.helper.GetAuth()!.token!,
       }));
 
@@ -87,40 +88,27 @@ export class NuevoComponent implements OnInit, AfterContentChecked {
       return `https://flagicons.lipis.dev/flags/4x3/us.svg`;
   }
 
-  getServerType(amd: boolean, shared: boolean): ServerType[] {
+  getServerType(cpu_type: string, architecture: string): ServerType[] {
     try {
       // Obtenemos
-      let current: ServerType[] = this.listServerType;
+      let current: ServerType[] = this.listServerType!;
 
       // Filtramos
-      if (this.aplicacionUbicacion! > 0) {
+      current = current.filter(x => x!.cpu_type! == cpu_type && x!.architecture! == architecture!);
+
+      // Filtramos
+      if (this.ubicacionId! > 0) {
+        // Obtenemos la ubicación
+        let ubiActual: Datacenter = this.listDataCenter.find(x => x.location!.id! == this.ubicacionId!)!;
 
         // Obtenemos la ubicación actual
-        let actual: Location = this.listLocation.find(x => x!.id! == this.aplicacionUbicacion)!;
+        current = current.filter(x => x!.prices!.filter(y => y!.location! == ubiActual!.name!))!;
 
-        // Filtramos
-        current = this.listServerType.filter(x => x!.prices!.filter(y => y.location == actual.name));
+        // Devolvemos
+        return current;
+      } else {
+        return current;
       }
-
-      // amd - shared
-      if (amd && shared) {
-        return current.filter(x => x.cpu_type == 'shared' && x.name!.toLowerCase().includes('cpx'));
-      }
-      // amd - dicated
-      if (amd && !shared) {
-        return current.filter(x => x.cpu_type == 'dedicated' && x.name!.toLowerCase().includes('ccx') && x.name!.substr(4, 1) === '2');
-      }
-      // intel - shared
-      if (!amd && shared) {
-        return current.filter(x => x.cpu_type == 'shared' && x.name!.toLowerCase().includes('cx'));
-      }
-      // intel - dicated
-      if (!amd && !shared) {
-        return current.filter(x => x.cpu_type == 'dedicated' && x.name!.toLowerCase().includes('ccx') && x.name!.substr(4, 1) === '1');
-      }
-
-      // Nel
-      return [];
     } catch (err) {
       return [];
     }
