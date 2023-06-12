@@ -1,3 +1,4 @@
+export { AplicacionService } from './services/aplicacion.service';
 export { AppService } from './services/app.service';
 export { AuthService } from './services/auth.service';
 export { HetznerService } from './services/hetzner.service';

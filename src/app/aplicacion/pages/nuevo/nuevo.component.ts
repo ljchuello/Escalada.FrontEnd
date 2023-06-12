@@ -9,6 +9,9 @@ import {HetznerService} from '../../../api/services/hetzner.service';
 import {PlataformaService} from '../../../api/services/plataforma.service';
 import {Location} from '../../../api/models/location';
 import {Datacenter} from '../../../api/models/datacenter';
+import {AplicacionService} from '../../../api/services/aplicacion.service';
+import {Router} from '@angular/router';
+import {Enlace} from '../../../Config';
 
 @Component({
   selector: 'app-nuevo',
@@ -26,6 +29,8 @@ export class NuevoComponent implements OnInit, AfterContentChecked {
     private hetznerService: HetznerService,
     private plataformaService: PlataformaService,
     private ref: ChangeDetectorRef,
+    private aplicacionService: AplicacionService,
+    private router: Router,
   ) {
   }
 
@@ -41,6 +46,11 @@ export class NuevoComponent implements OnInit, AfterContentChecked {
   aplicacionPlataforma: string = '';
   ubicacionId: number = 0;
   aplicacionServidorId: number = 0;
+  multiServer: boolean = true;
+  terminoCondiciones: boolean = false;
+  serverMin: number = 1;
+  serverMax: number = 1;
+  hetznerApiToken: string = '';
 
   // Build
   build() {
@@ -49,6 +59,11 @@ export class NuevoComponent implements OnInit, AfterContentChecked {
       aplicacionPlataforma: [{value: this.aplicacionPlataforma}, [Validators.required]],
       ubicacionId: [{value: this.ubicacionId}, [Validators.required, Validators.min(1)]],
       aplicacionServidorId: [{value: this.aplicacionServidorId}, [Validators.required, Validators.min(1)]],
+      multiServer: [{value: this.multiServer}, [Validators.required,]],
+      serverMin: [{value: this.serverMin}, [Validators.required, Validators.min(1), Validators.max(150)]],
+      serverMax: [{value: this.serverMax}, [Validators.required, Validators.min(1), Validators.max(150)]],
+      hetznerApiToken: [{value: this.hetznerApiToken}, [Validators.required, Validators.min(1), Validators.max(150)]],
+      terminoCondiciones: [{value: this.terminoCondiciones}, [Validators.required,]],
     });
   }
 
@@ -74,6 +89,8 @@ export class NuevoComponent implements OnInit, AfterContentChecked {
 
     } catch (err) {
       this.helper.Err(err, this.matSnackBar);
+    } finally {
+      this.block = false;
     }
   }
 
@@ -98,11 +115,12 @@ export class NuevoComponent implements OnInit, AfterContentChecked {
 
       // Filtramos
       if (this.ubicacionId! > 0) {
-        // Obtenemos la ubicación
-        let ubiActual: Datacenter = this.listDataCenter.find(x => x.location!.id! == this.ubicacionId!)!;
 
-        // Obtenemos la ubicación actual
-        current = current.filter(x => x!.prices!.filter(y => y!.location! == ubiActual!.name!))!;
+        // Datacenter
+        let datacenter = this.listDataCenter!.find(x => x.id == this.ubicacionId!)!;
+
+        // Filtramos por ubicación
+        current = current!.filter(x => datacenter!.serverTypes!.available!.includes(x!.id!));
 
         // Devolvemos
         return current;
@@ -111,6 +129,46 @@ export class NuevoComponent implements OnInit, AfterContentChecked {
       }
     } catch (err) {
       return [];
+    }
+  }
+
+  async btnEnviar() {
+    if (this.block)
+      return;
+    this.block = true;
+    try {
+      // Ensuciamos
+      this.miForm.markAllAsTouched();
+      // Validamos
+      if (this.miForm.invalid) {
+        this.helper.Show('There are invalid fields', this.matSnackBar);
+        return;
+      }
+      // Términos y condiciones
+      if (!this.terminoCondiciones) {
+        this.helper.Show('In order to continue you must accept the terms and conditions', this.matSnackBar);
+        return;
+      }
+      // Creamos
+      await lastValueFrom(this.aplicacionService.apiAplicacionPost$Json({
+        token: this.helper.GetAuth()!.token!,
+        datacenterId: this.ubicacionId!,
+        plataformaId: this.aplicacionPlataforma!,
+        descripcion: this.applicationName,
+        serverTypeId: this.aplicacionServidorId,
+        multiServer: this.multiServer,
+        serverMin: this.serverMin,
+        serverMax: this.serverMax,
+        hetznerApiKey: this.hetznerApiToken,
+      }));
+      // Libre de pecados
+      this.helper.Show(`The application ${this.applicationName} has been created successfully`, this.matSnackBar);
+      // Redireccionamos
+      this.router.navigate(['/', Enlace.Aplicacion]);
+    } catch (err) {
+      this.helper.Err(err, this.matSnackBar);
+    } finally {
+      this.block = false;
     }
   }
 

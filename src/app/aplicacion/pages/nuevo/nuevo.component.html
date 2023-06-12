@@ -56,6 +56,33 @@
     <div class="col-12">&nbsp;</div>
   </div>
 
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>Hetzner Token</mat-card-title>
+        <mat-card-subtitle>
+          In order to manage your services on your servers, you need to enter your Hetzner API token.
+        </mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+      <br>
+      <mat-form-field appearance="outline" class="col-12">
+        <mat-label>Hetzner Api Token</mat-label>
+        <input matInput
+               formControlName="hetznerApiToken"
+               [(ngModel)]="hetznerApiToken">
+        <mat-hint class="mat-error" *ngIf="helper.FgCampoInvalido('hetznerApiToken', miForm)">
+          Enter your Hetzner token
+        </mat-hint>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="row">
+    <div class="col-12">&nbsp;</div>
+  </div>
+
   <mat-card class="col-12">
     <mat-card-header>
       <mat-card-title>Location</mat-card-title>
@@ -91,7 +118,7 @@
                 </mat-card-content>
                 <mat-card-actions>
                   <mat-radio-button color="primary"
-                                    [value]="row!.location!.id!">{{row!.location!.city!}}</mat-radio-button>
+                                    [value]="row!.id!">{{row!.location!.city!}}</mat-radio-button>
                 </mat-card-actions>
               </mat-card>
             </div>
@@ -100,7 +127,6 @@
 
         </mat-radio-group>
       </div>
-
     </mat-card-content>
   </mat-card>
 
@@ -110,7 +136,7 @@
 
   <mat-card class="col-12">
     <mat-card-header>
-      <mat-card-title>Instance - {{aplicacionServidorId}}</mat-card-title>
+      <mat-card-title>Instance</mat-card-title>
       <mat-card-subtitle>
         The type of instance determines the vCPU, RAM, SSD, and outbound network transfer capacity that each server
         running your application will have. You can choose between shared or dedicated vCPUs, and between AMD or Intel
@@ -136,7 +162,7 @@
             </div>
           </mat-tab>
 
-          <mat-tab label="Shared vCPU (Arm64)">
+          <mat-tab label="Shared vCPU (Arm64)" *ngIf="getServerType('shared', 'arm')!.length! > 0">
             <div class="row">
               <div *ngFor="let row of getServerType('shared', 'arm')" class="col-6 col-md-4 col-lg-3"
                    style="padding: 5px">
@@ -157,6 +183,93 @@
         </mat-tab-group>
       </mat-radio-group>
 
+    </mat-card-content>
+  </mat-card>
+
+  <div class="row">
+    <div class="col-12">&nbsp;</div>
+  </div>
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>Capacity</mat-card-title>
+        <mat-card-subtitle>
+          Set the minimum and maximum number of instances that your application can have
+        </mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content class="row">
+      <br>
+      <div class="col-4">
+        <mat-checkbox
+          formControlName="multiServer"
+          class="example-margin"
+          [(ngModel)]="multiServer"
+          (ngModelChange)="serverMin = 1; serverMax = 5;">
+          Application with multiple instances
+        </mat-checkbox>
+      </div>
+
+      <br>
+
+      <mat-form-field *ngIf="multiServer" appearance="outline" class="col-4" color="primary">
+        <mat-label>Minimum capacity</mat-label>
+        <input matInput
+               formControlName="serverMin"
+               [(ngModel)]="serverMin">
+        <mat-hint class="mat-error" *ngIf="helper.FgCampoInvalido('serverMin', miForm)">
+          The capacity must be between 1 and 150
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="multiServer" appearance="outline" class="col-4">
+        <mat-label>Maximum capacity</mat-label>
+        <input matInput
+               formControlName="serverMax"
+               [(ngModel)]="serverMax">
+        <mat-hint class="mat-error" *ngIf="helper.FgCampoInvalido('serverMax', miForm)">
+          The capacity must be between 1 and 150
+        </mat-hint>
+      </mat-form-field>
+
+    </mat-card-content>
+  </mat-card>
+
+  <div class="row">
+    <div class="col-12">&nbsp;</div>
+  </div>
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>Terms and Conditions</mat-card-title>
+        <mat-card-subtitle>
+          I am confident that I have the resources available and within the limits of Hetzner. I am responsible for my
+          resources and that I will pay for provisioned servers and that BackStages.com will only manage my servers. I
+          also keep in mind that I won't be able to manage my servers since I use BackStages.com for that and that I can
+          delete the servers that BackStages.com creates.
+        </mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content class="row">
+      <br>
+      <div class="col-4">
+        <mat-checkbox
+          formControlName="terminoCondiciones"
+          class="example-margin"
+          [(ngModel)]="terminoCondiciones">
+          I have read and agree
+        </mat-checkbox>
+      </div>
+      <br>
+      <div class="col12">
+        <button mat-raised-button type="button" color="primary" [disabled]="block" (click)="btnEnviar()">
+          <i class="fa-regular fa-square-plus"></i>
+          &nbsp;
+          Create platform
+        </button>
+      </div>
     </mat-card-content>
   </mat-card>
 

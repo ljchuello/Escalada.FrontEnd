@@ -4,6 +4,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { AplicacionService } from './services/aplicacion.service';
 import { AppService } from './services/app.service';
 import { AuthService } from './services/auth.service';
 import { HetznerService } from './services/hetzner.service';
@@ -18,6 +19,7 @@ import { UsuarioService } from './services/usuario.service';
   exports: [],
   declarations: [],
   providers: [
+    AplicacionService,
     AppService,
     AuthService,
     HetznerService,
