@@ -1,31 +1,25 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 
 import { Datacenter } from '../models/datacenter';
 import { ServerType } from '../models/server-type';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class HetznerService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /**
-   * Path part for operation apiHetznerDatacenterGet
-   */
+  /** Path part for operation `apiHetznerDatacenterGet()` */
   static readonly ApiHetznerDatacenterGetPath = '/api/Hetzner/datacenter';
 
   /**
@@ -34,24 +28,21 @@ export class HetznerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiHetznerDatacenterGet$Plain$Response(params?: {
-    token?: string;
-  },
-  context?: HttpContext
-
-): Observable<StrictHttpResponse<Array<Datacenter>>> {
-
+  apiHetznerDatacenterGet$Plain$Response(
+    params?: {
+      token?: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<Array<Datacenter>>> {
     const rb = new RequestBuilder(this.rootUrl, HetznerService.ApiHetznerDatacenterGetPath, 'get');
     if (params) {
       rb.query('token', params.token, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: 'text/plain',
-      context: context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'text', accept: 'text/plain', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<Datacenter>>;
       })
@@ -64,15 +55,14 @@ export class HetznerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiHetznerDatacenterGet$Plain(params?: {
-    token?: string;
-  },
-  context?: HttpContext
-
-): Observable<Array<Datacenter>> {
-
-    return this.apiHetznerDatacenterGet$Plain$Response(params,context).pipe(
-      map((r: StrictHttpResponse<Array<Datacenter>>) => r.body as Array<Datacenter>)
+  apiHetznerDatacenterGet$Plain(
+    params?: {
+      token?: string;
+    },
+    context?: HttpContext
+  ): Observable<Array<Datacenter>> {
+    return this.apiHetznerDatacenterGet$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Datacenter>>): Array<Datacenter> => r.body)
     );
   }
 
@@ -82,24 +72,21 @@ export class HetznerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiHetznerDatacenterGet$Json$Response(params?: {
-    token?: string;
-  },
-  context?: HttpContext
-
-): Observable<StrictHttpResponse<Array<Datacenter>>> {
-
+  apiHetznerDatacenterGet$Json$Response(
+    params?: {
+      token?: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<Array<Datacenter>>> {
     const rb = new RequestBuilder(this.rootUrl, HetznerService.ApiHetznerDatacenterGetPath, 'get');
     if (params) {
       rb.query('token', params.token, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'text/json',
-      context: context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'text/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<Datacenter>>;
       })
@@ -112,21 +99,18 @@ export class HetznerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiHetznerDatacenterGet$Json(params?: {
-    token?: string;
-  },
-  context?: HttpContext
-
-): Observable<Array<Datacenter>> {
-
-    return this.apiHetznerDatacenterGet$Json$Response(params,context).pipe(
-      map((r: StrictHttpResponse<Array<Datacenter>>) => r.body as Array<Datacenter>)
+  apiHetznerDatacenterGet$Json(
+    params?: {
+      token?: string;
+    },
+    context?: HttpContext
+  ): Observable<Array<Datacenter>> {
+    return this.apiHetznerDatacenterGet$Json$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Datacenter>>): Array<Datacenter> => r.body)
     );
   }
 
-  /**
-   * Path part for operation apiHetznerServerTypeGet
-   */
+  /** Path part for operation `apiHetznerServerTypeGet()` */
   static readonly ApiHetznerServerTypeGetPath = '/api/Hetzner/serverType';
 
   /**
@@ -135,24 +119,21 @@ export class HetznerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiHetznerServerTypeGet$Plain$Response(params?: {
-    token?: string;
-  },
-  context?: HttpContext
-
-): Observable<StrictHttpResponse<Array<ServerType>>> {
-
+  apiHetznerServerTypeGet$Plain$Response(
+    params?: {
+      token?: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<Array<ServerType>>> {
     const rb = new RequestBuilder(this.rootUrl, HetznerService.ApiHetznerServerTypeGetPath, 'get');
     if (params) {
       rb.query('token', params.token, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: 'text/plain',
-      context: context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'text', accept: 'text/plain', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<ServerType>>;
       })
@@ -165,15 +146,14 @@ export class HetznerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiHetznerServerTypeGet$Plain(params?: {
-    token?: string;
-  },
-  context?: HttpContext
-
-): Observable<Array<ServerType>> {
-
-    return this.apiHetznerServerTypeGet$Plain$Response(params,context).pipe(
-      map((r: StrictHttpResponse<Array<ServerType>>) => r.body as Array<ServerType>)
+  apiHetznerServerTypeGet$Plain(
+    params?: {
+      token?: string;
+    },
+    context?: HttpContext
+  ): Observable<Array<ServerType>> {
+    return this.apiHetznerServerTypeGet$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<ServerType>>): Array<ServerType> => r.body)
     );
   }
 
@@ -183,24 +163,21 @@ export class HetznerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiHetznerServerTypeGet$Json$Response(params?: {
-    token?: string;
-  },
-  context?: HttpContext
-
-): Observable<StrictHttpResponse<Array<ServerType>>> {
-
+  apiHetznerServerTypeGet$Json$Response(
+    params?: {
+      token?: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<Array<ServerType>>> {
     const rb = new RequestBuilder(this.rootUrl, HetznerService.ApiHetznerServerTypeGetPath, 'get');
     if (params) {
       rb.query('token', params.token, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'text/json',
-      context: context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'text/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<ServerType>>;
       })
@@ -213,15 +190,14 @@ export class HetznerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiHetznerServerTypeGet$Json(params?: {
-    token?: string;
-  },
-  context?: HttpContext
-
-): Observable<Array<ServerType>> {
-
-    return this.apiHetznerServerTypeGet$Json$Response(params,context).pipe(
-      map((r: StrictHttpResponse<Array<ServerType>>) => r.body as Array<ServerType>)
+  apiHetznerServerTypeGet$Json(
+    params?: {
+      token?: string;
+    },
+    context?: HttpContext
+  ): Observable<Array<ServerType>> {
+    return this.apiHetznerServerTypeGet$Json$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<ServerType>>): Array<ServerType> => r.body)
     );
   }
 

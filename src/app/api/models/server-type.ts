@@ -7,7 +7,7 @@ export interface ServerType {
   cpu_type?: null | string;
   description?: null | string;
   disk?: null | number;
-  id?: null | number;
+  id?: number;
   memory?: null | number;
   name?: null | string;
   prices?: null | Array<Price>;

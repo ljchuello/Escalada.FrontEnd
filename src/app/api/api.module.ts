@@ -8,8 +8,11 @@ import { AplicacionService } from './services/aplicacion.service';
 import { AppService } from './services/app.service';
 import { AuthService } from './services/auth.service';
 import { HetznerService } from './services/hetzner.service';
+import { MetricService } from './services/metric.service';
 import { PlataformaService } from './services/plataforma.service';
+import { ShService } from './services/sh.service';
 import { UsuarioService } from './services/usuario.service';
+import { VirtualMachineService } from './services/virtual-machine.service';
 
 /**
  * Module that provides all services and configuration.
@@ -23,8 +26,11 @@ import { UsuarioService } from './services/usuario.service';
     AppService,
     AuthService,
     HetznerService,
+    MetricService,
     PlataformaService,
+    ShService,
     UsuarioService,
+    VirtualMachineService,
     ApiConfiguration
   ],
 })

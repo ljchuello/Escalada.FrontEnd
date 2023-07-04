@@ -1,29 +1,23 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AppService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /**
-   * Path part for operation apiAppGet
-   */
+  /** Path part for operation `apiAppGet()` */
   static readonly ApiAppGetPath = '/api/App';
 
   /**
@@ -32,24 +26,19 @@ export class AppService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiAppGet$Plain$Response(params?: {
-    token?: string;
-  },
-  context?: HttpContext
-
-): Observable<StrictHttpResponse<string>> {
-
+  apiAppGet$Plain$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<string>> {
     const rb = new RequestBuilder(this.rootUrl, AppService.ApiAppGetPath, 'get');
     if (params) {
-      rb.query('token', params.token, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: 'text/plain',
-      context: context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'text', accept: 'text/plain', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<string>;
       })
@@ -62,15 +51,13 @@ export class AppService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiAppGet$Plain(params?: {
-    token?: string;
-  },
-  context?: HttpContext
-
-): Observable<string> {
-
-    return this.apiAppGet$Plain$Response(params,context).pipe(
-      map((r: StrictHttpResponse<string>) => r.body as string)
+  apiAppGet$Plain(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<string> {
+    return this.apiAppGet$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 
@@ -80,24 +67,19 @@ export class AppService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiAppGet$Json$Response(params?: {
-    token?: string;
-  },
-  context?: HttpContext
-
-): Observable<StrictHttpResponse<string>> {
-
+  apiAppGet$Json$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<string>> {
     const rb = new RequestBuilder(this.rootUrl, AppService.ApiAppGetPath, 'get');
     if (params) {
-      rb.query('token', params.token, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'text/json',
-      context: context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'text/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<string>;
       })
@@ -110,15 +92,13 @@ export class AppService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiAppGet$Json(params?: {
-    token?: string;
-  },
-  context?: HttpContext
-
-): Observable<string> {
-
-    return this.apiAppGet$Json$Response(params,context).pipe(
-      map((r: StrictHttpResponse<string>) => r.body as string)
+  apiAppGet$Json(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<string> {
+    return this.apiAppGet$Json$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 

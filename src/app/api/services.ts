@@ -2,5 +2,8 @@ export { AplicacionService } from './services/aplicacion.service';
 export { AppService } from './services/app.service';
 export { AuthService } from './services/auth.service';
 export { HetznerService } from './services/hetzner.service';
+export { MetricService } from './services/metric.service';
 export { PlataformaService } from './services/plataforma.service';
+export { ShService } from './services/sh.service';
 export { UsuarioService } from './services/usuario.service';
+export { VirtualMachineService } from './services/virtual-machine.service';
