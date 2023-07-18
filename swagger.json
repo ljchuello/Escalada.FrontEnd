@@ -17,6 +17,51 @@
   ],
   "paths": {
     "/api/Aplicacion": {
+      "get": {
+        "tags": [
+          "Aplicacion"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/oAplicacion"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/oAplicacion"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/oAplicacion"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "post": {
         "tags": [
           "Aplicacion"
@@ -96,17 +141,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "boolean"
+                  "type": "string"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "boolean"
+                  "type": "string"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "boolean"
+                  "type": "string"
                 }
               }
             }
@@ -536,7 +581,7 @@
         }
       }
     },
-    "/api/Sh/core-service": {
+    "/api/Sh/netcorex64": {
       "get": {
         "tags": [
           "Sh"
@@ -565,36 +610,7 @@
         }
       }
     },
-    "/api/Sh/netcore": {
-      "get": {
-        "tags": [
-          "Sh"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Sh/netcore-service": {
+    "/api/Sh/netcorex64-service": {
       "get": {
         "tags": [
           "Sh"
@@ -875,6 +891,78 @@
           "networkZone": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "oAplicacion": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "datacenterId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "locationId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "plataformaId": {
+            "type": "string",
+            "nullable": true
+          },
+          "codigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "addAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "editAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "serverType": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "multiServer": {
+            "type": "boolean"
+          },
+          "serverMin": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "serverMax": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "serverCurrent": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "estado": {
+            "type": "boolean"
+          },
+          "checkUlt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "checkNext": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "additionalProperties": false

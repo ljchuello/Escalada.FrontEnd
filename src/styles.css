@@ -23,6 +23,10 @@ p, div, cell, .col, .row, h1, h2, h3, h4, h5, button, label, span, th, td, .mat-
   flex: 1 1 auto;
 }
 
+.icono {
+  font-size: 24px;
+}
+
 .grandesito {
   font-family: 'Ubuntu', sans-serif !important;
   font-size: 18px !important;

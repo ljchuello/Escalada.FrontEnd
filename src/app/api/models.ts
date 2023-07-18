@@ -2,6 +2,7 @@
 /* eslint-disable */
 export { Datacenter } from './models/datacenter';
 export { Location } from './models/location';
+export { OAplicacion } from './models/o-aplicacion';
 export { OAuth } from './models/o-auth';
 export { OClaveValorS } from './models/o-clave-valor-s';
 export { OMetrica } from './models/o-metrica';

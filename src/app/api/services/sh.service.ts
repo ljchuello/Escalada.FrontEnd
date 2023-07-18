@@ -102,21 +102,21 @@ export class ShService extends BaseService {
     );
   }
 
-  /** Path part for operation `apiShCoreServiceGet()` */
-  static readonly ApiShCoreServiceGetPath = '/api/Sh/core-service';
+  /** Path part for operation `apiShNetcorex64Get()` */
+  static readonly ApiShNetcorex64GetPath = '/api/Sh/netcorex64';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiShCoreServiceGet$Plain()` instead.
+   * To access only the response body, use `apiShNetcorex64Get$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiShCoreServiceGet$Plain$Response(
+  apiShNetcorex64Get$Plain$Response(
     params?: {
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<string>> {
-    const rb = new RequestBuilder(this.rootUrl, ShService.ApiShCoreServiceGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, ShService.ApiShNetcorex64GetPath, 'get');
     if (params) {
     }
 
@@ -132,32 +132,32 @@ export class ShService extends BaseService {
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiShCoreServiceGet$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `apiShNetcorex64Get$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiShCoreServiceGet$Plain(
+  apiShNetcorex64Get$Plain(
     params?: {
     },
     context?: HttpContext
   ): Observable<string> {
-    return this.apiShCoreServiceGet$Plain$Response(params, context).pipe(
+    return this.apiShNetcorex64Get$Plain$Response(params, context).pipe(
       map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiShCoreServiceGet$Json()` instead.
+   * To access only the response body, use `apiShNetcorex64Get$Json()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiShCoreServiceGet$Json$Response(
+  apiShNetcorex64Get$Json$Response(
     params?: {
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<string>> {
-    const rb = new RequestBuilder(this.rootUrl, ShService.ApiShCoreServiceGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, ShService.ApiShNetcorex64GetPath, 'get');
     if (params) {
     }
 
@@ -173,35 +173,35 @@ export class ShService extends BaseService {
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiShCoreServiceGet$Json$Response()` instead.
+   * To access the full response (for headers, for example), `apiShNetcorex64Get$Json$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiShCoreServiceGet$Json(
+  apiShNetcorex64Get$Json(
     params?: {
     },
     context?: HttpContext
   ): Observable<string> {
-    return this.apiShCoreServiceGet$Json$Response(params, context).pipe(
+    return this.apiShNetcorex64Get$Json$Response(params, context).pipe(
       map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 
-  /** Path part for operation `apiShNetcoreGet()` */
-  static readonly ApiShNetcoreGetPath = '/api/Sh/netcore';
+  /** Path part for operation `apiShNetcorex64ServiceGet()` */
+  static readonly ApiShNetcorex64ServiceGetPath = '/api/Sh/netcorex64-service';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiShNetcoreGet$Plain()` instead.
+   * To access only the response body, use `apiShNetcorex64ServiceGet$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiShNetcoreGet$Plain$Response(
+  apiShNetcorex64ServiceGet$Plain$Response(
     params?: {
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<string>> {
-    const rb = new RequestBuilder(this.rootUrl, ShService.ApiShNetcoreGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, ShService.ApiShNetcorex64ServiceGetPath, 'get');
     if (params) {
     }
 
@@ -217,32 +217,32 @@ export class ShService extends BaseService {
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiShNetcoreGet$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `apiShNetcorex64ServiceGet$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiShNetcoreGet$Plain(
+  apiShNetcorex64ServiceGet$Plain(
     params?: {
     },
     context?: HttpContext
   ): Observable<string> {
-    return this.apiShNetcoreGet$Plain$Response(params, context).pipe(
+    return this.apiShNetcorex64ServiceGet$Plain$Response(params, context).pipe(
       map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiShNetcoreGet$Json()` instead.
+   * To access only the response body, use `apiShNetcorex64ServiceGet$Json()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiShNetcoreGet$Json$Response(
+  apiShNetcorex64ServiceGet$Json$Response(
     params?: {
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<string>> {
-    const rb = new RequestBuilder(this.rootUrl, ShService.ApiShNetcoreGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, ShService.ApiShNetcorex64ServiceGetPath, 'get');
     if (params) {
     }
 
@@ -258,101 +258,16 @@ export class ShService extends BaseService {
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiShNetcoreGet$Json$Response()` instead.
+   * To access the full response (for headers, for example), `apiShNetcorex64ServiceGet$Json$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiShNetcoreGet$Json(
+  apiShNetcorex64ServiceGet$Json(
     params?: {
     },
     context?: HttpContext
   ): Observable<string> {
-    return this.apiShNetcoreGet$Json$Response(params, context).pipe(
-      map((r: StrictHttpResponse<string>): string => r.body)
-    );
-  }
-
-  /** Path part for operation `apiShNetcoreServiceGet()` */
-  static readonly ApiShNetcoreServiceGetPath = '/api/Sh/netcore-service';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiShNetcoreServiceGet$Plain()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiShNetcoreServiceGet$Plain$Response(
-    params?: {
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<string>> {
-    const rb = new RequestBuilder(this.rootUrl, ShService.ApiShNetcoreServiceGetPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'text', accept: 'text/plain', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<string>;
-      })
-    );
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiShNetcoreServiceGet$Plain$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiShNetcoreServiceGet$Plain(
-    params?: {
-    },
-    context?: HttpContext
-  ): Observable<string> {
-    return this.apiShNetcoreServiceGet$Plain$Response(params, context).pipe(
-      map((r: StrictHttpResponse<string>): string => r.body)
-    );
-  }
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiShNetcoreServiceGet$Json()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiShNetcoreServiceGet$Json$Response(
-    params?: {
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<string>> {
-    const rb = new RequestBuilder(this.rootUrl, ShService.ApiShNetcoreServiceGetPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'json', accept: 'text/json', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<string>;
-      })
-    );
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiShNetcoreServiceGet$Json$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiShNetcoreServiceGet$Json(
-    params?: {
-    },
-    context?: HttpContext
-  ): Observable<string> {
-    return this.apiShNetcoreServiceGet$Json$Response(params, context).pipe(
+    return this.apiShNetcorex64ServiceGet$Json$Response(params, context).pipe(
       map((r: StrictHttpResponse<string>): string => r.body)
     );
   }

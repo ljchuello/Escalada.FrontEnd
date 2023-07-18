@@ -6,7 +6,8 @@ import {IndexComponent} from './pages/index/index.component';
 import {NuevoComponent} from './pages/nuevo/nuevo.component';
 import {MaterialModule} from '../material/material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { CardServerTypeComponent } from './components/card-server-type/card-server-type.component';
+import {CardServerTypeComponent} from './components/card-server-type/card-server-type.component';
+import {SharedModule} from "../shared/shared.module";
 
 
 @NgModule({
@@ -15,13 +16,14 @@ import { CardServerTypeComponent } from './components/card-server-type/card-serv
     NuevoComponent,
     CardServerTypeComponent
   ],
-    imports: [
-        CommonModule,
-        AplicacionRoutingModule,
-        MaterialModule,
-        ReactiveFormsModule,
-        FormsModule,
-    ]
+  imports: [
+    CommonModule,
+    AplicacionRoutingModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    FormsModule,
+    SharedModule,
+  ]
 })
 export class AplicacionModule {
 }

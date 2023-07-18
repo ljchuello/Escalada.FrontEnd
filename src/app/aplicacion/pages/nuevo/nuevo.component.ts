@@ -62,7 +62,7 @@ export class NuevoComponent implements OnInit, AfterContentChecked {
       multiServer: [{value: this.multiServer}, [Validators.required,]],
       serverMin: [{value: this.serverMin}, [Validators.required, Validators.min(1), Validators.max(150)]],
       serverMax: [{value: this.serverMax}, [Validators.required, Validators.min(1), Validators.max(150)]],
-      hetznerApiToken: [{value: this.hetznerApiToken}, [Validators.required, Validators.min(1), Validators.max(150)]],
+      hetznerApiToken: [{value: this.hetznerApiToken}, [Validators.required,]],
       terminoCondiciones: [{value: this.terminoCondiciones}, [Validators.required,]],
     });
   }
@@ -150,7 +150,7 @@ export class NuevoComponent implements OnInit, AfterContentChecked {
         return;
       }
       // Creamos
-      await lastValueFrom(this.aplicacionService.apiAplicacionPost$Json({
+      let id: string = await lastValueFrom(this.aplicacionService.apiAplicacionPost$Json({
         token: this.helper.GetAuth()!.token!,
         datacenterId: this.ubicacionId!,
         plataformaId: this.aplicacionPlataforma!,
@@ -165,6 +165,11 @@ export class NuevoComponent implements OnInit, AfterContentChecked {
       this.helper.Show(`The application ${this.applicationName} has been created successfully`, this.matSnackBar);
       // Redireccionamos
       this.router.navigate(['/', Enlace.Aplicacion]);
+      // Creamos
+      await lastValueFrom(this.aplicacionService.apiAplicacionRebuildPut$Json({
+        token: this.helper.GetAuth()!.token!,
+        aplicacionId: id,
+      }))
     } catch (err) {
       this.helper.Err(err, this.matSnackBar);
     } finally {

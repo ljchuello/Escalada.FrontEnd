@@ -10,11 +10,103 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 import { RequestBuilder } from '../request-builder';
 
+import { OAplicacion } from '../models/o-aplicacion';
 
 @Injectable({ providedIn: 'root' })
 export class AplicacionService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `apiAplicacionGet()` */
+  static readonly ApiAplicacionGetPath = '/api/Aplicacion';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiAplicacionGet$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiAplicacionGet$Plain$Response(
+    params?: {
+      token?: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<Array<OAplicacion>>> {
+    const rb = new RequestBuilder(this.rootUrl, AplicacionService.ApiAplicacionGetPath, 'get');
+    if (params) {
+      rb.query('token', params.token, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'text', accept: 'text/plain', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<OAplicacion>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiAplicacionGet$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiAplicacionGet$Plain(
+    params?: {
+      token?: string;
+    },
+    context?: HttpContext
+  ): Observable<Array<OAplicacion>> {
+    return this.apiAplicacionGet$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<OAplicacion>>): Array<OAplicacion> => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiAplicacionGet$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiAplicacionGet$Json$Response(
+    params?: {
+      token?: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<Array<OAplicacion>>> {
+    const rb = new RequestBuilder(this.rootUrl, AplicacionService.ApiAplicacionGetPath, 'get');
+    if (params) {
+      rb.query('token', params.token, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'text/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<OAplicacion>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiAplicacionGet$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiAplicacionGet$Json(
+    params?: {
+      token?: string;
+    },
+    context?: HttpContext
+  ): Observable<Array<OAplicacion>> {
+    return this.apiAplicacionGet$Json$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<OAplicacion>>): Array<OAplicacion> => r.body)
+    );
   }
 
   /** Path part for operation `apiAplicacionPost()` */
@@ -39,7 +131,7 @@ export class AplicacionService extends BaseService {
       hetznerApiKey?: string;
     },
     context?: HttpContext
-  ): Observable<StrictHttpResponse<boolean>> {
+  ): Observable<StrictHttpResponse<string>> {
     const rb = new RequestBuilder(this.rootUrl, AplicacionService.ApiAplicacionPostPath, 'post');
     if (params) {
       rb.query('token', params.token, {});
@@ -58,7 +150,7 @@ export class AplicacionService extends BaseService {
     ).pipe(
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: String((r as HttpResponse<any>).body) === 'true' }) as StrictHttpResponse<boolean>;
+        return r as StrictHttpResponse<string>;
       })
     );
   }
@@ -82,9 +174,9 @@ export class AplicacionService extends BaseService {
       hetznerApiKey?: string;
     },
     context?: HttpContext
-  ): Observable<boolean> {
+  ): Observable<string> {
     return this.apiAplicacionPost$Plain$Response(params, context).pipe(
-      map((r: StrictHttpResponse<boolean>): boolean => r.body)
+      map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 
@@ -107,7 +199,7 @@ export class AplicacionService extends BaseService {
       hetznerApiKey?: string;
     },
     context?: HttpContext
-  ): Observable<StrictHttpResponse<boolean>> {
+  ): Observable<StrictHttpResponse<string>> {
     const rb = new RequestBuilder(this.rootUrl, AplicacionService.ApiAplicacionPostPath, 'post');
     if (params) {
       rb.query('token', params.token, {});
@@ -126,7 +218,7 @@ export class AplicacionService extends BaseService {
     ).pipe(
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: String((r as HttpResponse<any>).body) === 'true' }) as StrictHttpResponse<boolean>;
+        return r as StrictHttpResponse<string>;
       })
     );
   }
@@ -150,9 +242,9 @@ export class AplicacionService extends BaseService {
       hetznerApiKey?: string;
     },
     context?: HttpContext
-  ): Observable<boolean> {
+  ): Observable<string> {
     return this.apiAplicacionPost$Json$Response(params, context).pipe(
-      map((r: StrictHttpResponse<boolean>): boolean => r.body)
+      map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 

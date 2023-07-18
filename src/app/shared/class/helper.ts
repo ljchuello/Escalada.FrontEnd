@@ -1,5 +1,4 @@
 // noinspection RedundantIfStatementJS
-
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UntypedFormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
@@ -15,6 +14,12 @@ export class Helper {
     } catch (err) {
       return '';
     }
+  }
+
+  utcToLocal(fecha: string): Date {
+    let fecha01: Date = new Date(fecha)
+    console.log(new Date())
+    return fecha01
   }
 
   soloNumeros(a: any): boolean {
