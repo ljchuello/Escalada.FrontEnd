@@ -25,7 +25,7 @@ export class IndexComponent implements OnInit {
   }
 
   // Columnas a mostrar
-  displayedColumns: string[] = ['codigo', 'descripcion', 'url', 'addAt', 'checkUlt', 'id'];
+  displayedColumns: string[] = ['codigo', 'descripcion', 'url', 'addAt', 'checkUlt', 'capacidad', 'id'];
 
   // Datasource
   dataSource: MatTableDataSource<OAplicacion> = new MatTableDataSource<OAplicacion>();

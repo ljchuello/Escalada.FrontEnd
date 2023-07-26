@@ -16,12 +16,6 @@ export class Helper {
     }
   }
 
-  utcToLocal(fecha: string): Date {
-    let fecha01: Date = new Date(fecha)
-    console.log(new Date())
-    return fecha01
-  }
-
   soloNumeros(a: any): boolean {
     let charCode = (a.which) ? a.which : a.keyCode;
     // Del/Sup

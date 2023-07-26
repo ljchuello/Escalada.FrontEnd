@@ -11,6 +11,10 @@ body {
   font-family: 'Ubuntu', sans-serif !important;
 }
 
+a{
+  color: white;
+}
+
 p, div, cell, .col, .row, h1, h2, h3, h4, h5, button, label, span, th, td, .mat-option-text, .mat-mdc-card-title, .mat-mdc-card-subtitle {
   font-family: 'Ubuntu', sans-serif !important;
 }
@@ -24,7 +28,7 @@ p, div, cell, .col, .row, h1, h2, h3, h4, h5, button, label, span, th, td, .mat-
 }
 
 .icono {
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .grandesito {
